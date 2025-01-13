@@ -12,7 +12,9 @@ function TableHeader() {
     );
 }
 
+// the only props we have is just the characterData
 function TableBody(props) {
+  // be specific about the props name again and map it
     const rows = props.characterData.map((row, index) => {
         return (
           <tr key={index}>
@@ -35,6 +37,8 @@ function TableBody(props) {
   }
 
 function Table(props) {
+  // App.js passes down arguments into props
+  // we break the props apart, putting props.characterData into characterData, and etc.
   return (
     <table>
       <TableHeader/>

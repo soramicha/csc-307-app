@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 
+// creating a component called Form
+// props are what's getting passed into Form by MyApp.js
 function Form(props) {
     const [person, setPerson] = useState({
-        name: "",
+        name: "", // setting default values
         job: ""
         });
 
     function handleChange(event) {
+        // name, value matches with the input settings
         const { name, value } = event.target;
         if (name === "job")
             setPerson({ name: person["name"], job: value });
@@ -14,6 +17,7 @@ function Form(props) {
     }
 
     function submitForm() {
+        // so in MyApp.js, person is our argument going into our updateList function
         props.handleSubmit(person);
         setPerson({name: "", job: ""})
     }
@@ -22,19 +26,19 @@ function Form(props) {
         <form>
             <label htmlFor="name">Name</label>
             <input
-            type="text"
-            name="name"
-            id="name"
-            value={person.name}
-            onChange={handleChange}
+                type="text"
+                name="name"
+                id="name"
+                value={person.name}
+                onChange={handleChange}
             />
             <label htmlFor="job">Job</label>
             <input
-            type="text"
-            name="job"
-            id="job"
-            value={person.job}
-            onChange={handleChange}
+                type="text"
+                name="job"
+                id="job"
+                value={person.job}
+                onChange={handleChange}
             />
             <input type="button" value="Submit" onClick={submitForm} />
         </form>
