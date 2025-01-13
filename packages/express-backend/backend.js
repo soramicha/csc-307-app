@@ -84,4 +84,16 @@ app.get("/users/:id", (req, res) => {
     }
   });
   
-
+const addUser = (user) => {
+    // add into the array of users
+    users["users_list"].push(user);
+    return user;
+  };
+  
+app.post("/users", (req, res) => {
+    const userToAdd = req.body;
+    addUser(userToAdd);
+    // testing in postman!
+    // console.log(userToAdd)
+    res.send();
+  });
