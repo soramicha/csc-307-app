@@ -49,19 +49,22 @@ const users = {
     ]
   }
 
-const findUserByName = (name) => {
+const findUserByNameAndJob = (name, job) => {
     // only return information where the user["name"] === name
     return users["users_list"].filter(
-        (user) => user["name"] === name
+        (user) => (user["name"] === name && user["job"] === job)
     );
 };
 
+// get users with specific name and job
 app.get("/users", (req, res) => {
     // get the requested name from the url
     const name = req.query.name;
-    if (name != undefined) {
-        let result = findUserByName(name);
+    const job = req.query.job;
+    if (name != undefined && job != undefined) {
+        let result = findUserByNameAndJob(name, job);
         result = { users_list: result };
+        console.log("Finished retriving data")
         res.send(result);
     } else {
         res.send(users);
@@ -97,3 +100,18 @@ app.post("/users", (req, res) => {
     // console.log(userToAdd)
     res.send();
   });
+
+// assigns updated list of users after removing user with specific id
+const deleteUser = (id) => {
+    users["users_list"] = users["users_list"].filter(
+        (user) => user["id"] != id
+    )
+}
+
+// we are taking the specific id as a parameter
+app.delete("/users/:id", (req, res) => {
+    const userToDelete = req.params.id;
+    deleteUser(userToDelete)
+    console.log("Deleted " + userToDelete)
+    res.send()
+})
