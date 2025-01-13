@@ -68,3 +68,20 @@ app.get("/users", (req, res) => {
     }
 });
 
+const findUserById = (id) =>
+    // only return information where the user["id"] === id
+    // we use the find function instead of filter because the id
+    // is a UNIQUE identifier, so we only need to find ONE result
+    users["users_list"].find((user) => user["id"] === id);
+  
+app.get("/users/:id", (req, res) => {
+    const id = req.params["id"]; //or req.params.id
+    let result = findUserById(id);
+    if (result === undefined) {
+      res.status(404).send("Resource not found.");
+    } else {
+      res.send(result);
+    }
+  });
+  
+
